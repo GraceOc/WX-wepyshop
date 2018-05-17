@@ -233,25 +233,25 @@
             <text class="price">￥{{ goodsDetail.goods_price }}</text>
         </view>
         <view class="product-body">
-            <view class="product-name">
-                {{ goodsDetail.goods_name }}
-            </view>
-            <view class="product-like">
-                <view class="iconfont icon-shoucang"></view>
-                <view>收藏</view>
-            </view>
+          <view class="product-name">
+              {{ goodsDetail.goods_name }}
+          </view>
+          <view class="product-like">
+              <view class="iconfont icon-shoucang"></view>
+              <view>收藏</view>
+          </view>
         </view>
         <view class="product-foot">
             快递：<text>免运费</text>
         </view>
     </view>
     <view class="part">
-        <view class="part-item part-line">
-            <text class="note">促销</text><text class="description color-main">满300减30元</text>
-        </view>
-        <view class="part-item">
-            <text class="note">已选</text><text class="description">黑色/S/1件</text>
-        </view>
+      <view class="part-item part-line">
+          <text class="note">促销</text><text class="description color-main">满300减30元</text>
+      </view>
+      <view class="part-item">
+          <text class="note">已选</text><text class="description">黑色/S/1件</text>
+      </view>
     </view>
     <view class="part">
         <view class="part-item">
@@ -329,13 +329,15 @@ export default class GoodsDetail extends wepy.page {
   onLoad() {
     console.log('onLoad')
     // 获取数据
-    api.getGoodsDetail({
-      data: {goods_id: 17927}
-    }).then(res => {
-      console.log(res)
-      this.goodsDetail = res.data
-      this.$apply()
-    })
+    api
+      .getGoodsDetail({
+        data: { goods_id: 17927 }
+      })
+      .then(res => {
+        console.log(res)
+        this.goodsDetail = res.data
+        this.$apply()
+      })
   }
 }
 </script>
