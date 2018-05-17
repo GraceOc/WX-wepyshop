@@ -274,21 +274,10 @@
                 商品图文展示
             </view>
             <view class="tabs-content">
-                <view class="param-item">
-                    <text class="note">商品名称</text>
-                    <text class="description">复古撞色运动外套男女情侣校服立领夹文字自动换行</text>
-                </view>
-                <view class="param-item">
-                    <text class="note">品牌</text>
-                    <text class="description">初语</text>
-                </view>
-                <view class="param-item">
-                    <text class="note">编号</text>
-                    <text class="description">BR1005</text>
-                </view>
-                <view class="param-item">
-                    <text class="note">颜色</text>
-                    <text class="description">黑色 / 白色 / 灰色</text>
+              <!-- 规格参数列表 -->
+                <view class="param-item" wx:for="{{goodsDetail.attrs}}" wx:key="index">
+                    <text class="note">{{item.attr_name}}</text>
+                    <text class="description">{{item.attr_value}}</text>
                 </view>
             </view>
         </view>
@@ -341,7 +330,7 @@ export default class GoodsDetail extends wepy.page {
     console.log('onLoad')
     // 获取数据
     api.getGoodsDetail({
-      data: {goods_id: 55578}
+      data: {goods_id: 17927}
     }).then(res => {
       console.log(res)
       this.goodsDetail = res.data
