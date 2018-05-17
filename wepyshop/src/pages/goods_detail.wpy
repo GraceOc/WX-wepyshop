@@ -1,4 +1,6 @@
 <style lang="less">
+// 富文本插件wxParse
+@import '../plugins/wxParse/wxParse.wxss';
 // 2.0 这里写样式
 .swiper,
 .swiper-img {
@@ -262,18 +264,22 @@
 
     <view class="tabs">
         <view class="tabs-head">
-            <view class="tabs-item">
+            <view class="tabs-item active">
                 图文详情
             </view>
-            <view class="tabs-item active">
+            <view class="tabs-item ">
                 规格参数
             </view>
         </view>
         <view class="tabs-body">
-            <view class="tabs-content" style="display: none">
-                商品图文展示
-            </view>
+          <!-- 图文展示, wxPare模板 -->
             <view class="tabs-content">
+              <!--引入 WXML 模板 -->
+              <import src="/plugins/wxParse/wxParse.wxml"/>
+              <!-- 这里data中article为bindName -->
+              <template is="wxParse" data="{{wxParseData:article.nodes}}"></template>
+            </view>
+            <view class="tabs-content" style="display:none">
               <!-- 规格参数列表 -->
                 <view class="param-item" wx:for="{{goodsDetail.attrs}}" wx:key="index">
                     <text class="note">{{item.attr_name}}</text>
@@ -304,6 +310,8 @@
 import wepy from 'wepy'
 // 导入API
 import api from '../api/api'
+// 导入富文本插件
+import WxParse from '../plugins/wxParse/wxParse.js'
 // 首字母大写
 export default class GoodsDetail extends wepy.page {
   // 这里写JSON配置项
@@ -337,6 +345,10 @@ export default class GoodsDetail extends wepy.page {
         console.log(res)
         this.goodsDetail = res.data
         this.$apply()
+        // 富文本插件wxPage 数据绑定
+        var parseData = this.goodsDetail.goods_introduce
+        var that = this
+        WxParse.wxParse('article', 'html', parseData, that, 5)
       })
   }
 }
