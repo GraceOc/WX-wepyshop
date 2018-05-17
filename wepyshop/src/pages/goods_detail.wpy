@@ -264,22 +264,22 @@
 
     <view class="tabs">
         <view class="tabs-head">
-            <view class="tabs-item active">
+            <view class="tabs-item {{tabsActiveIndex == 0? 'active': ''}}" @tap="switchTabsHandle({{0}})">
                 图文详情
             </view>
-            <view class="tabs-item ">
+            <view class="tabs-item {{tabsActiveIndex == 1? 'active': ''}}" @tap="switchTabsHandle({{1}})">
                 规格参数
             </view>
         </view>
         <view class="tabs-body">
           <!-- 图文展示, wxPare模板 -->
-            <view class="tabs-content">
+            <view class="tabs-content" hidden="{{tabsActiveIndex != 0 }}">
               <!--引入 WXML 模板 -->
               <import src="/plugins/wxParse/wxParse.wxml"/>
               <!-- 这里data中article为bindName -->
               <template is="wxParse" data="{{wxParseData:article.nodes}}"></template>
             </view>
-            <view class="tabs-content" style="display:none">
+            <view class="tabs-content" hidden="{{tabsActiveIndex != 1 }}">
               <!-- 规格参数列表 -->
                 <view class="param-item" wx:for="{{goodsDetail.attrs}}" wx:key="index">
                     <text class="note">{{item.attr_name}}</text>
@@ -319,7 +319,8 @@ export default class GoodsDetail extends wepy.page {
     navigationBarTitleText: '商品详情'
   }
   data = {
-    goodsDetail: null
+    goodsDetail: null,
+    tabsActiveIndex: 0 // 商品详情和规格参数切换 设置默认值
   }
   methods = {
     // 使用图片预览
@@ -332,6 +333,10 @@ export default class GoodsDetail extends wepy.page {
         current: currentImg, // 当前显示图片的http链接
         urls: previewImageArr // 需要预览的图片http链接列表
       })
+    },
+    // 商品详情和规格参数切换
+    switchTabsHandle(index) {
+      this.tabsActiveIndex = index
     }
   }
   onLoad() {
