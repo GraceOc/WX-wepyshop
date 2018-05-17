@@ -1,18 +1,50 @@
 <style lang="less">
-.searchbar{
-  background: #ff2d4a;
+.searchbar {
+  background-color: #ff2d4a;
+  padding: 20rpx 16rpx;
+  // 0.0.1 固定搜索框
+  box-sizing: border-box;
+  position: fixed;
+  width: 750rpx;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  &-in {
+    height: 60rpx;
+    color: #bbb;
+    background-color: #fff;
+    border-radius: 5rpx;
+    /* flex伸缩盒布局  */
+    display: flex;
+    /* 1. 水平居中对齐  */
+    justify-content: center;
+    /* 2. 垂直居中对齐 */
+    align-items: center;
+  }
+  .icon-search {
+    width: 32rpx;
+    height: 32rpx;
+    margin-right: 16rpx;
+  }
+}
+// 0.0.2 给page 设置 padding
+page {
+  padding-top: 100rpx;
 }
 </style>
 <template>
-  <navigator url="/pages/goods_list" class="searchbar">搜索框
+  <navigator url="/pages/goods_list" class="searchbar">
+    <view class="searchbar-in">
+      <image class="icon-search" src="/images/icon_search@2x.png"></image>
+      <view class="searchbar-txt">搜索</view>
+    </view>
   </navigator>
 </template>
 <script>
-  import wepy from 'wepy'
+import wepy from 'wepy'
 
 /* wepy组件是从 wepy.component中继承, app.wpy全局是从wepy.app中继承
 page.wpy页面是从wepy.page中继承
 */
-  export default class SearchBar extends wepy.component {}
+export default class SearchBar extends wepy.component {}
 </script>
-

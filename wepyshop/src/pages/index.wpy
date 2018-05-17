@@ -88,7 +88,7 @@
 </style>
 <template>
   <!-- 使用搜索组件 -->
-  <SearchBar></SearchBar>
+    <SearchBar></SearchBar>
   <!-- 轮播图 -->
   <swiper class="swiper" indicator-dots autoplay circular indicator-active-colo="#fff" indicator-color="rgba(255,255,255,.3)">
     <block wx:for="{{swiperArr}}" wx:key="index">
