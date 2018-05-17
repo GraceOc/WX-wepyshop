@@ -223,18 +223,18 @@
       autoplay="true"
       circular="true">
       <block wx:for="{{goodsDetail.pics}}" wx:key="index">
-        <swiper-item @tap="previewImageHandle">
+        <swiper-item @tap="previewImageHandle({{item.pics_big}})">
           <image class="swiper-img" src="{{ item.pics_big }}" />
         </swiper-item>
       </block>
     </swiper>
     <view class="product-info">
         <view class="product-head">
-            <text class="price">￥248</text>
+            <text class="price">￥{{ goodsDetail.goods_price }}</text>
         </view>
         <view class="product-body">
             <view class="product-name">
-                春秋棒球服女嘻哈接头潮牌复古撞色运动外套男女情侣校服立领夹文字超出隐藏
+                {{ goodsDetail.goods_name }}
             </view>
             <view class="product-like">
                 <view class="iconfont icon-shoucang"></view>
@@ -326,14 +326,14 @@ export default class GoodsDetail extends wepy.page {
   }
   methods = {
     // 使用图片预览
-    previewImageHandle() {
+    previewImageHandle(currentImg) {
+      let previewImageArr = []
+      this.goodsDetail.pics.forEach(item => {
+        previewImageArr.push(item.pics_big)
+      })
       wepy.previewImage({
-        current: 'http://image3.suning.cn/uimg/b2c/newcatentries/0070067836-000000000690453616_1_800x800.jpg', // 当前显示图片的http链接
-        urls: [
-          'http://image2.suning.cn/uimg/b2c/newcatentries/0070067836-000000000690453616_3_800x800.jpg',
-          'http://image2.suning.cn/uimg/b2c/newcatentries/0070067836-000000000690453616_2_800x800.jpg',
-          'http://image3.suning.cn/uimg/b2c/newcatentries/0070067836-000000000690453616_1_800x800.jpg'
-        ] // 需要预览的图片http链接列表
+        current: currentImg, // 当前显示图片的http链接
+        urls: previewImageArr // 需要预览的图片http链接列表
       })
     }
   }
