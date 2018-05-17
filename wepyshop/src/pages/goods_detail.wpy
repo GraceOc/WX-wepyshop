@@ -222,9 +222,9 @@
       interval="2500"
       autoplay="true"
       circular="true">
-      <block>
-        <swiper-item>
-          <image class="swiper-img" src="http://p6lmyfkof.bkt.clouddn.com/detail_banner@2x.png" />
+      <block wx:for="{{goodsDetail.pics}}" wx:key="index">
+        <swiper-item @tap="previewImageHandle">
+          <image class="swiper-img" src="{{ item.pics_big }}" />
         </swiper-item>
       </block>
     </swiper>
@@ -311,16 +311,42 @@
 </template>
 
 <script>
-// 3.0 这里写JS
+// 这里写JS
 import wepy from 'wepy'
+// 导入API
+import api from '../api/api'
 // 首字母大写
 export default class GoodsDetail extends wepy.page {
-  // 4.0 这里写JSON配置项
+  // 这里写JSON配置项
   config = {
     navigationBarTitleText: '商品详情'
   }
+  data = {
+    goodsDetail: null
+  }
+  methods = {
+    // 使用图片预览
+    previewImageHandle() {
+      wepy.previewImage({
+        current: 'http://image3.suning.cn/uimg/b2c/newcatentries/0070067836-000000000690453616_1_800x800.jpg', // 当前显示图片的http链接
+        urls: [
+          'http://image2.suning.cn/uimg/b2c/newcatentries/0070067836-000000000690453616_3_800x800.jpg',
+          'http://image2.suning.cn/uimg/b2c/newcatentries/0070067836-000000000690453616_2_800x800.jpg',
+          'http://image3.suning.cn/uimg/b2c/newcatentries/0070067836-000000000690453616_1_800x800.jpg'
+        ] // 需要预览的图片http链接列表
+      })
+    }
+  }
   onLoad() {
     console.log('onLoad')
+    // 获取数据
+    api.getGoodsDetail({
+      data: {goods_id: 55578}
+    }).then(res => {
+      console.log(res)
+      this.goodsDetail = res.data
+      this.$apply()
+    })
   }
 }
 </script>
