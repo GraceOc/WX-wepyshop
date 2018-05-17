@@ -1,0 +1,18 @@
+<style lang="less">
+.searchbar{
+  background: #ff2d4a;
+}
+</style>
+<template>
+  <navigator url="/pages/goods_list" class="searchbar">搜索框
+  </navigator>
+</template>
+<script>
+  import wepy from 'wepy'
+
+/* wepy组件是从 wepy.component中继承, app.wpy全局是从wepy.app中继承
+page.wpy页面是从wepy.page中继承
+*/
+  export default class SearchBar extends wepy.component {}
+</script>
+
