@@ -73,6 +73,18 @@
     color:#666;
   }
 }
+// 底部图标
+.end-tips {
+  display: flex;
+  // 3.0 主轴对齐方式
+  justify-content: center;
+  color: #999;
+  height: 200rpx;
+  margin-top: 20rpx;
+  .icon-smile {
+    margin-right: 10rpx;
+  }
+}
 </style>
 <template>
   <!-- 使用搜索组件 -->
@@ -123,6 +135,11 @@
   <view class="to-top" @tap="toTopHandle">
     <image class="to-top-img" src="/images/arrow_top@2x.png"></image>
     <view class="to-top-txt">顶部</view>
+  </view>
+  <!-- 字体图标 -->
+  <view class="end-tips">
+    <view class="iconfont icon-smile"></view>
+    <view class="end-tips-txt">我是有底线的!</view>
   </view>
 </template>
 
