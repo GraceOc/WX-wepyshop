@@ -11,5 +11,38 @@
 	"appid": "wxeedd7b4b0fe27125",
 	"projectname": "wepyshop",
 	"miniprogramRoot": "./dist",
-	"condition": {}
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": 1,
+			"list": [
+				{
+					"id": -1,
+					"name": "商品详情",
+					"pathName": "pages/goods_list",
+					"query": "goods_id"
+				},
+				{
+					"id": -1,
+					"name": "商品详情",
+					"pathName": "pages/goods_detail",
+					"query": "goods_id"
+				}
+			]
+		}
+	}
 }

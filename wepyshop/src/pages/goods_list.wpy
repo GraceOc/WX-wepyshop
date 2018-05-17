@@ -1,9 +1,7 @@
 <style lang="less">
 </style>
 <template>
-  <view class="container">
-    搜索
-  </view>
+  搜索/商品列表
 </template>
 
 <script>
