@@ -1,0 +1,193 @@
+<style lang="less">
+.search {
+  width: 100%;
+  height: 100rpx;
+  background-color: #ff2d4a;
+  box-sizing: border-box;
+  padding-top: 20rpx;
+  input {
+    height: 60rpx;
+    text-align: center;
+    font-size: 24rpx;
+    background: #fff;
+    border-radius: 8rpx;
+    margin: 0 16rpx;
+  }
+}
+/*轮播图  */
+.swiper {
+  width: 750rpx;
+  height: 340rpx;
+  &-img {
+    width: 750rpx;
+    height: 340rpx;
+  }
+}
+/* 导航  */
+.nav {
+  background-color: #fff;
+  display: flex;
+  &-item {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 24rpx 0 30rpx;
+  }
+  &-img {
+    width: 128rpx;
+    height: 140rpx;
+  }
+}
+/*楼层*/
+.floor {
+  margin-top: 30rpx;
+  &-head {
+    &-img {
+      width: 750rpx;
+      height: 59rpx;
+    }
+  }
+  &-body {
+    background: #fff;
+    display: flex;
+    padding: 20rpx 16rpx 10rpx 16rpx;
+    &-left,
+    &-left-img {
+      width: 232rpx;
+      height: 386rpx;
+    }
+    &-right {
+      display: flex;
+      flex-wrap: wrap;
+      &-img {
+        width: 233rpx;
+        height: 188rpx;
+        margin: 0 0 10rpx 10rpx;
+      }
+    }
+  }
+}
+// 返回顶部
+.to-top{
+  width:90rpx;
+  height:90rpx;
+  background-color:rgba(255,255,255,.5);
+  border-radius:50%;
+  position:fixed;
+  right:30rpx;
+  bottom:90rpx;
+  display:flex;  // 内容居中
+  justify-content: center;  // 主轴对齐方式
+  flex-direction:column;  // 主轴方向
+  align-items:center; // 交叉轴对齐方式
+  &-img{
+    width:24rpx;
+    height:14rpx;
+  }
+  &-txt{
+    color:#666;
+  }
+}
+</style>
+<template>
+<!--这里下写结构-->
+    <view class="search">
+      <input type="text" placeholder="搜索"/>
+    </view>
+    <!-- 轮播图 -->
+    <swiper class="swiper" indicator-dots autoplay circular indicator-active-colo="#fff" indicator-color="rgba(255,255,255,.3)">
+      <block wx:for="{{swiperArr}}" wx:key="index">
+        <swiper-item>
+          <navigator url="{{item.navigator_url}}" open-type="{{ item.open_type }}">
+            <image class="swiper-img" src="{{item.image_src}}" mode="widthFix"/>
+          </navigator>
+        </swiper-item>
+      </block>
+    </swiper>
+
+  <!-- 导航 -->
+  <view class="nav">
+    <block wx:for="{{navArr}}" wx:key="index">
+      <navigator class="nav-item" hover-class="none" url="{{item.navigator_url}}"  open-type="{{tiem.open-type}}">
+        <image class="nav-img" src="{{item.image_src}}"></image>
+      </navigator>
+    </block>
+  </view>
+  <!-- 首页楼层 -->
+  <block wx:for="{{floorArr}}" wx:key="index">
+    <view class="floor">
+      <view class="floor-head">
+        <image class="floor-head-img" src="{{item.floor_title.image_src}}"></image>
+      </view>
+      <view class="floor-body">
+        <!-- 左边 -->
+        <view class="floor-body-left">
+          <navigator url="{{item.product_list[0].navigator_url}}">
+            <image class="floor-body-left-img" src="{{item.product_list[0].image_src}}"></image>
+          </navigator>
+        </view>
+        <!-- 右边 -->
+        <view class="floor-body-right">
+          <block wx:for="{{item.product_list}}" wx:key="index" wx:if="{{index > 0}}">
+            <navigator url="{{item.navigator_url}}" open_type="{{item.open_type}}">
+              <image class="floor-body-right-img" src="{{item.image_src}}" style="width:{{item.image_width}}rpx"></image>
+            </navigator>
+          </block>
+        </view>
+      </view>
+    </view>
+  </block>
+  <view class="to-top" @tap="toTopHandle">
+    <image class="to-top-img" src="/images/arrow_top@2x.png"></image>
+    <view class="to-top-txt">顶部</view>
+  </view>
+</template>
+
+<script>
+// 这里写逻辑
+// 把wepy导入到页面中
+import wepy from 'wepy'
+// 导入API接口函数
+import api from '../api/api'
+
+// 创建一个叫Index的类,这个类从wepy.page中继承过来 Index首字母必须大写
+export default class Index extends wepy.page {
+  // 这里写json配置 语法: 属性名 = { } 配置之间无逗号
+  config = {
+    navigationBarTitleText: '优购',
+    enablePullDownRefresh: true
+  }
+  data = {
+    // 轮播图数组
+    swiperArr: [],
+    navArr: [],
+    floorArr: []
+  }
+  methods = {
+    toTopHandle() {
+      wepy.pageScrollTo({
+        scrollTop: 0,
+        duration: '300'
+      })
+    }
+  }
+  onLoad() {
+    console.log('onLoad')
+    api.getHomeSwiper().then(res => {
+      // 轮播图
+      this.swiperArr = res.data
+      this.$apply()
+    })
+    api.getHomeNav().then(res => {
+      // 导航栏
+      this.navArr = res.data
+      this.$apply()
+    })
+    api.getHomeFloor().then(res => {
+      // 导航栏
+      this.floorArr = res.data
+      this.$apply()
+    })
+  }
+}
+</script>

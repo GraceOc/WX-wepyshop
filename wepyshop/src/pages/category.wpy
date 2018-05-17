@@ -1,0 +1,22 @@
+<style lang="less">
+</style>
+<template>
+  <view class="container">
+    Hello world
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+// Category首字母必须大写
+  export default class Category extends wepy.page {
+    // 这里写json配置
+    config = {
+      navigationBarTitleText: '分类'
+    }
+    onLoad() {
+      console.log('onLoad')
+    }
+  }
+</script>

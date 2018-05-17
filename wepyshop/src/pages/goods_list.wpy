@@ -1,0 +1,21 @@
+<style lang="less">
+</style>
+<template>
+  <view class="container">
+    搜索
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class GoodsList extends wepy.page {
+    // 这里写json配置
+    config = {
+      navigationBarTitleText: '搜索'
+    }
+    onLoad() {
+      console.log('onLoad')
+    }
+  }
+</script>

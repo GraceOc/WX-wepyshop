@@ -1,0 +1,21 @@
+<style lang="less">
+</style>
+<template>
+  <view class="container">
+    Hello world
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Cart extends wepy.page {
+    // 这里写json配置
+    config = {
+      navigationBarTitleText: '分类'
+    }
+    onLoad() {
+      console.log('onLoad')
+    }
+  }
+</script>

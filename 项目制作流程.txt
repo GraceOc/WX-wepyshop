@@ -1,0 +1,89 @@
+
+使用微信小程序组件化开发框架Wepy
+=====day01配置====
+   (A)安装wepy:
+      (1).使用wepy小程序开发文档:https://tencent.github.io/wepy/document.html#/
+      (2).全局安装 npm install wepy-cli -g  查看版本 wepy -v
+      (3). npm config get prefix 能查看npm的目录
+      (4). 生成目录(1.7.0+的版本用) wepy init empty wepyshop  此时生成一个wepyshop文件夹,用于开发
+      (5). 在生成的目录下安装依赖 npm i
+	   注意: APPID在https://mp.weixin.qq.com/中
+   (B)在vscode中配置:
+   	(1)配置当前页:打开安装vetur,配置:右下角=>选择语言模式处改为vue
+   	(2)配置全局: 文件-首选项-设置-用户设置-添加自己团队的配置-"*.wpy": "vue"
+   	(3)在project.config.json文件中修改自己的APPID
+	(4) 以上2步可以直接在该目录下放入.vscode包(里面配置好,推荐,因为配置全面)
+
+   (C) 开启实时编译,在使用中不能关闭,指令: wepy build --watch
+
+   (C)项目跑起来
+	(1) 前往微信开发者工具,创建小程序项目管理->打开本目录
+	 ..APPID问题:如果在A4步骤生成项目中已填入id,在创建小程序项目时会自动找到该id填充,否则手动填充并需要在project.config.json文件中填入
+
+		
+   ....总结:所用到的命令:
+	 wepy init empty wepyshop    1. 初始化wepy项目
+	 cd wepyshop                 2. 进入项目文件夹
+	 npm i                       3. 安装 npm 依赖包
+	 wepy build --watch          4. 编译 wepy 项目
+
+
+
+
+---配置文件介绍  
+     (1)prettierrc文件和.editorconfig是配置代码规范用的,计算机会优先使用该规范,需要安装插件EditorConfig和Prettier才能使用
+     	  添加配置:prettierrc文件的配置 "singleQuote": true,
+是否使用单引号   "semi": false
+     (2)添加配置文件.vscode到src同级目录中,.vscode文件的作用:被优先读取该配置,而不读取首选项中的配置,以后团队开发时约定的配置
+
+
+====================day02===============
+---解释:
+     (1)export default class Index extends wepy.page:创建Index类,并继承wepy.page页面,然后导出到本页面中
+     (2)import wepy from 'wepy':把wepy导入到页面中
+
+
+====================day03===================
+---在wepy中用wepy代替wx写法
+---域名不合法的报错处理: 配置域名:详情=>不校验合法域名除勾上
+
+
+
+
+
+====================day04====================
+
+      (1)添加goodslis, order, goodsdetail页面,并在app.wepy中将这些页面添加到pages pages中不能带wpy后缀
+
+	(2.0).文档:  https://github.com/Tencent/wepy/wiki/wepy%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8async-await
+      (2)npm install wepy-async-function --save 让小程序的api支持promise,安装完毕后在package.json文件中会出现"wepy-async-function": "^1.4.6"
+---在wepy.config文件中配置,完成后需要更改成promise写法
+---封装配置 utils
+
+(一)
+      (1) 新建utils工具目录=>封装发送请求的js文件,将根路径独立分离出来作appConfig.js
+      (2) 新建API目录,导入util中的文件
+
+
+(二).使用手机进行预览
+
+      (1) 确保全部图片替换成线上数据后,删除src中的upload和dist中的upload能缩小文件大小,实现更好预览====控制项目大小
+      (2) 去掉域名校验的√,此时报错:"不在以下 request 合法域名列表中，请参考文档,"  需要添加配置处理;微信公众平台=>设置=>开发设置=>配置服务器域名=>配置服务器信息=>添加报错提示的域名到合法域名中即可
+      (3) 说明: dist文件夹是小程序的根目录,编译后的文件会在这个目录生成. 查看微程序根: project.config.json文件-> "miniprogramRoot": "./dist",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
