@@ -310,7 +310,7 @@
             <text class="item-note">购物车</text>
         </view>
         <view class="btn-group">
-            <view class="btn yellow-button">加入购物车</view>
+            <view class="btn yellow-button" @tap="addCarHandle">加入购物车</view>
             <view class="btn red-button">立即购买</view>
         </view>
     </view>
@@ -355,8 +355,19 @@ export default class GoodsDetail extends wepy.page {
     // 购物车跳转
     goToCartTabBar() {
       wepy.switchTab({ url: '/pages/cart' })
+    },
+    // 添加商品到购物车,额外添加记录数量的属性和选中状态的属性
+    addCarHandle() {
+      let goodsCartInfo = {}
+      let keys = ['goods_id', 'goods_name', 'goods_price', 'goods_small_logo']
+      keys.forEach((item, index) => {
+        // goodsCartInfo[item[index]] = this.GoodsDetail[keys[index]]
+        goodsCartInfo[item] = this.goodsDetail[item]
+        console.log(goodsCartInfo)
+      })
     }
   }
+
   // 在onLoad中才能传入参数 options为页面参数
   onLoad(options) {
     console.log('onLoad', options)
