@@ -327,9 +327,9 @@
             <text class="product-price-decimal">.00</text>
           </view>
           <view class="product-count-eidt">
-            <view class="count-min disabled">-</view>
+            <view class="count-min disabled" @tap="countNumberHandle({{index}}, {{-1}})">-</view>
             <input class="count-number" type="number" value="{{item.goods_number}}" />
-            <view class="count-add">+</view>
+            <view class="count-add" @tap="countNumberHandle({{index}}, {{1}})">+</view>
           </view>
         </view>
       </view>
@@ -367,13 +367,20 @@ export default class Cart extends wepy.page {
   data = {
     cartDataArr: []
   }
+  methods = {
+    // 传参: 通过操作对应商品, method表示数量的增减
+    countNumberHandle(index, method) {
+      console.log(index)
+      this.cartDataArr[index].goods_number += method
+    }
+  }
   onLoad() {
     // console.log('onLoad')
   }
   onShow() {
     console.log('onShow', '每一次打开都会重复执行')
     this.cartDataArr = wepy.getStorageSync('cartDataArr') || []
-    console.log(this.cartDataArr)
+    // console.log(this.cartDataArr)
   }
 }
 </script>
