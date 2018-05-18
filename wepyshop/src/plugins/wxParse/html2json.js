@@ -116,7 +116,7 @@ function html2json(html, bindName) {
           var name = attr.name
           var value = attr.value
           if (name == 'class') {
-            // console.dir(value);
+            console.dir(value)
             //  value = value.join("")
             node.classStr = value
           }
@@ -150,7 +150,7 @@ function html2json(html, bindName) {
         }, {})
       }
 
-      //对img添加额外数据
+      // 对img添加额外数据
       if (node.tag === 'img') {
         node.imgIndex = results.images.length
         var imgUrl = node.attr.src
@@ -193,7 +193,7 @@ function html2json(html, bindName) {
         }
       }
 
-      //临时记录source资源
+      // 临时记录source资源
       if (node.tag === 'source') {
         results.source = node.attr.src
       }
@@ -234,7 +234,7 @@ function html2json(html, bindName) {
       }
     },
     chars: function(text) {
-      //debug(text);
+      // debug(text);
       var node = {
         node: 'text',
         text: text,
@@ -255,7 +255,7 @@ function html2json(html, bindName) {
       }
     },
     comment: function(text) {
-      //debug(text);
+      // debug(text);
       // var node = {
       //     node: 'comment',
       //     text: text,
@@ -275,7 +275,7 @@ function transEmojiStr(str) {
   //   str = str.replace(/\[([^\[\]]+)\]/g,':$1:')
 
   var emojiObjs = []
-  //如果正则表达式为空
+  // 如果正则表达式为空
   if (__emojisReg.length == 0 || !__emojis) {
     var emojiObj = {}
     emojiObj.node = 'text'
@@ -283,7 +283,7 @@ function transEmojiStr(str) {
     array = [emojiObj]
     return array
   }
-  //这个地方需要调整
+  // 这个地方需要调整
   str = str.replace(/\[([^\[\]]+)\]/g, ':$1:')
   var eReg = new RegExp('[:]')
   var array = str.split(eReg)
