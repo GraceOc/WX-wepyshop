@@ -357,12 +357,13 @@ export default class GoodsDetail extends wepy.page {
       wepy.switchTab({ url: '/pages/cart' })
     }
   }
-  onLoad() {
-    console.log('onLoad')
+  // 在onLoad中才能传入参数 options为页面参数
+  onLoad(options) {
+    console.log('onLoad', options)
     // 获取数据
     api
       .getGoodsDetail({
-        data: { goods_id: 17927 }
+        data: { goods_id: options.goods_id }
       })
       .then(res => {
         console.log(res)
