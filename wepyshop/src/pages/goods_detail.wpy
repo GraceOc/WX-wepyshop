@@ -214,13 +214,13 @@
   }
 }
 // 联系客服按钮
-.contact-btn{
+.contact-btn {
   opacity: 0;
   position: absolute;
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
 }
-.fixed-bar .item{
+.fixed-bar .item {
   position: relative;
 }
 </style>
@@ -363,9 +363,43 @@ export default class GoodsDetail extends wepy.page {
       keys.forEach((item, index) => {
         // goodsCartInfo[item[index]] = this.GoodsDetail[keys[index]]
         goodsCartInfo[item] = this.goodsDetail[item]
-        console.log(goodsCartInfo)
       })
+      console.log(goodsCartInfo)
+      // 额外添加数据 ,API-数据缓存-本地储存同步接口,不能使用对象形式,会存不进去,使用键值对
+      // let cartDataArr = []
+      // wepy.setStorageSync('key',goodsCartInfo)
+      // cartDataArr.push(key)
+      // 本地存储分购物车是否已有商品进行判断
+      let cartDataArr = wepy.getStorageSync('cartDataArr') || []
+      // 封装方法 校验goods_id是否存在本地
+      let goodsCartIndex = this._goodsCheckInCartGoodsId(
+        goodsCartInfo.goods_id,
+        cartDataArr
+      )
+      console.log(goodsCartIndex)
+      // 根据本地是否有商品进行添加
+      goodsCartInfo.selectStatus = true // 选中
+      if (goodsCartIndex === -1) {
+        goodsCartInfo.goods_number = 1
+        cartDataArr.push(goodsCartInfo)
+      } else {
+        // 如果存在 ++
+        cartDataArr[goodsCartIndex].goods_number++
+      }
+      wepy.setStorageSync('cartDataArr', cartDataArr)
+      // 成功添加-提示
     }
+  }
+  // 封装私有方法
+  _goodsCheckInCartGoodsId(goodsId, cartDataArr) {
+    let goodsCartIndex = -1 // 假设购物车不存在商品
+    for (let i = 0; i < cartDataArr.length; i++) {
+      if (cartDataArr[i].goods_id === goodsId) {
+        goodsCartIndex = i
+        break
+      }
+    }
+    return goodsCartIndex
   }
 
   // 在onLoad中才能传入参数 options为页面参数
