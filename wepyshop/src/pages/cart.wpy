@@ -328,7 +328,7 @@
           </view>
           <view class="product-count-eidt">
             <view class="count-min disabled" @tap="countNumberHandle({{index}}, {{-1}})">-</view>
-            <input class="count-number" type="number" value="{{item.goods_number}}" />
+            <input class="count-number" @input="countNumberInput({{index}})" type="number" value="{{item.goods_number}}" />
             <view class="count-add" @tap="countNumberHandle({{index}}, {{1}})">+</view>
           </view>
         </view>
@@ -389,8 +389,19 @@ export default class Cart extends wepy.page {
               console.log('用户点击取消')
               this.cartDataArr[index].goods_number = 1
             }
-            this.$apply()  // 更新视图
+            this.$apply() // 更新视图
           })
+      }
+    },
+    // 数量输入框 默认参数e,事件对象
+    countNumberInput(index, event) {
+      console.log(index, event)
+      let inputNumber = parseInt(event.detail.value)
+      let oldGoodsNumber = this.cartDataArr[index].goods_number
+      if (inputNumber < 1 || isNaN(inputNumber)) {
+        return oldGoodsNumber
+      } else {
+        this.cartDataArr[index].goods_number = inputNumber
       }
     }
   }
