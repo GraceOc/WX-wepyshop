@@ -310,12 +310,12 @@
     </view>
     <block wx:for="{{cartDataArr}}" wx:key="index">
       <view class="product-item">
-        <view class="iconfont-tap icon-xuanze icon-xuanze-fill"></view>
-        <navigator url="" class="product-left">
+        <view @tap="switchSelectStatus({{index}})" class="iconfont-tap icon-xuanze icon-xuanze-fill"></view>
+        <navigator url="/pages/goods_detail?goods_id={{item.goods_id}}" class="product-left">
           <image class="product-img" src="{{item.goods_small_logo}}" />
         </navigator>
         <view class="product-right">
-          <navigator url="" class="product-name">
+          <navigator url="/pages/goods_detail?goods_id={{item.goods_id}}" class="product-name">
             {{item.goods_name}}
           </navigator>
           <view class="product-detail">
@@ -398,6 +398,7 @@ export default class Cart extends wepy.page {
       console.log(index, event)
       let inputNumber = parseInt(event.detail.value)
       let oldGoodsNumber = this.cartDataArr[index].goods_number
+      console.log(oldGoodsNumber)
       if (inputNumber < 1 || isNaN(inputNumber)) {
         return oldGoodsNumber
       } else {
