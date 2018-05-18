@@ -322,7 +322,10 @@ export default class GoodsDetail extends wepy.page {
     goodsDetail: null,
     tabsActiveIndex: 0 // 商品详情和规格参数切换 设置默认值
   }
+
   methods = {
+    // 去掉加入wxPage富文本后出现的警告
+    wxParseImgLoad() {},
     // 使用图片预览
     previewImageHandle(currentImg) {
       let previewImageArr = []
