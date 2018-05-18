@@ -220,7 +220,7 @@
   width:100%;
   height:100%;
 }
-.fixed-bar-item{
+.fixed-bar .item{
   position: relative;
 }
 </style>
@@ -305,7 +305,7 @@
             <view class="iconfont icon-kefu"></view>
             <text class="item-note">联系客服</text>
         </view>
-        <view class="item">
+        <view class="item" @tap="goToCartTabBar">
             <view class="iconfont icon-gouwuche"></view>
             <text class="item-note">购物车</text>
         </view>
@@ -351,6 +351,10 @@ export default class GoodsDetail extends wepy.page {
     // 商品详情和规格参数切换
     switchTabsHandle(index) {
       this.tabsActiveIndex = index
+    },
+    // 购物车跳转
+    goToCartTabBar() {
+      wepy.switchTab({ url: '/pages/cart' })
     }
   }
   onLoad() {
