@@ -388,6 +388,12 @@ export default class GoodsDetail extends wepy.page {
       }
       wepy.setStorageSync('cartDataArr', cartDataArr)
       // 成功添加-提示
+      wepy.showToast({
+        mask: true,
+        title: '添加成功',
+        icon: 'success',
+        duration: 1500
+      })
     }
   }
   // 封装私有方法
