@@ -337,7 +337,7 @@
   </view>
   <view class="bottom-space"></view>
   <view class="fixed-bar">
-    <view class="iconfont-tap icon-xuanze icon-xuanze-fill"></view>
+    <view class="iconfont-tap icon-xuanze {{selectStatusCount ==cartDataArr.length? 'icon-xuanze-fill': ''}}"></view>
     <text class="select-all">全选</text>
     <view class="total">
       <view class="total">
@@ -365,7 +365,20 @@ export default class Cart extends wepy.page {
     navigationBarTitleText: '购物车'
   }
   data = {
-    cartDataArr: []
+    cartDataArr: [], // 购物车商品数量
+    selectStatusCount: 0 // 记录别选中的商品数量
+  }
+  // 使用计算属性解决页面一加载进来时无法获取商品状态的问题
+  computed = {
+    cartDataArr() {
+      this.selectStatusCount = 0 // 初始化
+      this.cartDataArr.forEach(item => {
+        if (item.selectStatus) {
+          this.selectStatusCount++
+        }
+      })
+      return this.cartDataArr
+    }
   }
   methods = {
     // 传参: 通过操作对应商品, method表示数量的增减
@@ -411,6 +424,13 @@ export default class Cart extends wepy.page {
     switchSelectStatus(index) {
       let goodsSelectStatus = this.cartDataArr[index].selectStatus
       this.cartDataArr[index].selectStatus = !goodsSelectStatus
+      // 复选框, 存在问题:当页面一加载进来的时候无法根据商品的选中状态进行全选返选,使用计算属性computed
+      // this.selectStatusCount = 0 // 初始化
+      // this.cartDataArr.forEach(item => {
+      //   if (item.selectStatus) {
+      //     this.selectStatusCount++
+      //   }
+      // })
     }
   }
   onLoad() {
