@@ -138,7 +138,7 @@
   </view>
   <!-- 字体图标 -->
   <view class="end-tips">
-    <view class="iconfont icon-smile"></view>
+    <view class="iconfont icon-xiao"></view>
     <view class="end-tips-txt">我是有底线的!</view>
   </view>
 </template>

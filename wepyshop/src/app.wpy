@@ -1,4 +1,8 @@
 <style lang="less">
+// 导入字体图标
+// @import '/style/iconfont.wxss/';
+@import '/style/iconfont.wxss';
+
 page {
   background-color: #f4f4f4;
   font-size: 24rpx;
