@@ -337,7 +337,7 @@
   </view>
   <view class="bottom-space"></view>
   <view class="fixed-bar">
-    <view class="iconfont-tap icon-xuanze {{selectStatusCount ==cartDataArr.length? 'icon-xuanze-fill': ''}}"></view>
+    <view @tap="selectAllHandle({{selectStatusCount == cartDataArr.length}})" class="iconfont-tap icon-xuanze {{selectStatusCount ==cartDataArr.length? 'icon-xuanze-fill': ''}}"></view>
     <text class="select-all">全选</text>
     <view class="total">
       <view class="total">
@@ -431,6 +431,13 @@ export default class Cart extends wepy.page {
       //     this.selectStatusCount++
       //   }
       // })
+    },
+    // 全选
+    selectAllHandle(selectAllStatus) {
+      console.log(selectAllStatus) // 布尔值
+      this.cartDataArr.forEach(item => {
+        item.selectStatus = !selectAllStatus
+      })
     }
   }
   onLoad() {
