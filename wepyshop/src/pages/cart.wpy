@@ -310,7 +310,7 @@
     </view>
     <block wx:for="{{cartDataArr}}" wx:key="index">
       <view class="product-item">
-        <view @tap="switchSelectStatus({{index}})" class="iconfont-tap icon-xuanze icon-xuanze-fill"></view>
+        <view @tap="switchSelectStatus({{index}})" class="iconfont-tap icon-xuanze {{item.selectStatus? 'icon-xuanze-fill': ''}}"></view>
         <navigator url="/pages/goods_detail?goods_id={{item.goods_id}}" class="product-left">
           <image class="product-img" src="{{item.goods_small_logo}}" />
         </navigator>
@@ -395,15 +395,22 @@ export default class Cart extends wepy.page {
     },
     // 数量输入框 默认参数e,事件对象
     countNumberInput(index, event) {
-      console.log(index, event)
-      let inputNumber = parseInt(event.detail.value)
-      let oldGoodsNumber = this.cartDataArr[index].goods_number
-      console.log(oldGoodsNumber)
-      if (inputNumber < 1 || isNaN(inputNumber)) {
-        return oldGoodsNumber
+      let inputNum = parseInt(event.detail.value)
+      let oldGoodsNum = this.cartDataArr[index].goods_number
+      if (inputNum < 1 || isNaN(inputNum)) {
+        return oldGoodsNum
       } else {
-        this.cartDataArr[index].goods_number = inputNumber
+        // this.cartDataArr[index].goods_number = ''
+        // setTimeout(() => {
+        this.cartDataArr[index].goods_number = inputNum
+        // this.$apply()
+        // }, 1)
       }
+    },
+    // 商品选择状态切换
+    switchSelectStatus(index) {
+      let goodsSelectStatus = this.cartDataArr[index].selectStatus
+      this.cartDataArr[index].selectStatus = !goodsSelectStatus
     }
   }
   onLoad() {
