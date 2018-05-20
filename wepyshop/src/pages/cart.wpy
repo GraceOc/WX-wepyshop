@@ -299,6 +299,7 @@
 </style>
 
 <template>
+<block wx:if="{{cartDataArr.length>0}}">
   <view class="divider"></view>
   <view class="cart-list">
     <view class="shop-head">
@@ -355,6 +356,10 @@
       结算({{selectStatusCount}})
     </navigator>
   </view>
+  </block>
+  <block wx:else>购物车为空
+    <navigator url="/pages/index" open-type="switchTab">返回首页逛逛</navigator>
+  </block>
 </template>
 <script>
 import wepy from 'wepy'
@@ -452,7 +457,7 @@ export default class Cart extends wepy.page {
   }
   // 当切换到其他页面时更新本地存储
   onHide() {
-    this.cartDataArr = wepy.getStorageSync('cartDataArr') || []
+    wepy.getStorageSync('cartDataArr', this.cartDataArr)
   }
 }
 </script>
