@@ -16,6 +16,18 @@ export default class Address extends wepy.component {
       twoWay: true
     }
   }
+  // 计算地址
+  computed = {
+    userAddress() {
+      if (this.userAddress) {
+        let userAddressMerge = `${this.userAddress.provinceName}${
+          this.userAddress.cityName
+        }${this.userAddress.countyName}${this.userAddress.detailInfo}`
+        this.userAddress.userAddressMerge = userAddressMerge
+      }
+      return this.userAddress
+    }
+  }
   methods = {
     // 调用原生收货地址组件
     chooseAddress() {
@@ -25,9 +37,13 @@ export default class Address extends wepy.component {
         // 把收货地址传给userAddress
         this.userAddress = res
         this.$apply()
+        // 将当前地址存到本地方便其他页面获取
+        wepy.setStorageSync('userAddress', this.userAddress)
       })
     }
   }
-  onLoad() {}
+  onLoad() {
+    this.userAddress = wepy.getStorageSync('userAddress') || null
+  }
 }
 </script>

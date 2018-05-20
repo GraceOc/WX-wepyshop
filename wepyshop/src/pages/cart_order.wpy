@@ -215,20 +215,20 @@ page {
 <!--使用地址组件 配合twoWay:true实现子传父,添加.sync后也能实现父传子-->
   <Address :userAddress.sync="addressPage">
     <view class="address-info">
-      <block wx:if="{{ address }}">
+      <block wx:if="{{ addressPage }}">
         <view class="item space-between">
           <view class="col">
             <text class="note">收货人：</text>
-            <text class="detail">Mark 狼</text>
+            <text class="detail">{{addressPage.userName}}</text>
           </view>
           <view class="col">
-            <text class="address-phone">13800138000</text>
+            <text class="address-phone">{{addressPage.telNumber}}</text>
             <view class="iconfont-tap icon-jiantouyou"></view>
           </view>
         </view>
         <view class="item">
           <text class="note">收货地址：</text>
-          <text class="detail">广州市天河区珠吉路传智播客</text>
+          <text class="detail">{{ addressPage.userAddressMerge }}</text>
         </view>
       </block>
       <block wx:else>
