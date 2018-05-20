@@ -270,7 +270,7 @@ page {
     </view>
     <view class="order-total-item">
       <view class="order-total-item-left">运费</view>
-      <view class="order-total-item-right">+￥0.00</view>
+      <view class="order-total-item-right">+￥{{totalPrice}}</view>
     </view>
   </view>
   <view class="order-pay">
@@ -296,7 +296,19 @@ export default class CartOrder extends wepy.page {
   }
   data = {
     addressPage: null, // 定义父组件的地址,然后子组件传值过来
-    cartDataArr: []
+    cartDataArr: [],
+    totalPrice: 0
+  }
+  computed = {
+    cartDataArr() {
+      this.totalPrice = 0
+      this.cartDataArr.forEach(item => {
+        if (item.selectStatus === true) {
+          this.totalPrice += item.goods_number * item.goods_price
+        }
+      })
+      return this.cartDataArr
+    }
   }
   methods = {
     getUserInfoHandle(e) {
