@@ -1,0 +1,296 @@
+<style lang="less">
+// 2.0 这里写样式
+page {
+  background-color: #fff;
+}
+.divider {
+  background-color: #f4f4f4;
+}
+.address {
+  &-info {
+    height: 222rpx;
+    padding-bottom: 15rpx;
+    box-sizing: border-box;
+    position: relative;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    .item {
+      padding: 22rpx 16rpx;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 32rpx;
+      line-height: 1.3;
+      .col {
+        display: flex;
+        align-items: center;
+      }
+      .note {
+        width: 160rpx;
+      }
+      .detail {
+        max-width: 480rpx;
+      }
+      .address-phone {
+        margin-right: 82rpx;
+      }
+      .icon-jiantouyou {
+        position: absolute;
+        right: 0;
+      }
+      .icon-jiantouyou:before {
+        font-size: 24rpx;
+        color: #999;
+        line-height: 1;
+        width: 15rpx;
+        height: 25rpx;
+      }
+    }
+  }
+  &-border {
+    width: 750rpx;
+    height: 15rpx;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  &-add {
+    height: 222rpx;
+    &-btn {
+      width: 360rpx;
+      height: 80rpx;
+      background-color: #f4f4f4;
+      border-radius: 5rpx;
+      color: #ccc;
+      font-size: 32rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+.product {
+  &-item {
+    display: flex;
+    padding: 30rpx 20rpx;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      left: 20rpx;
+      right: 0;
+      bottom: 0;
+      border-bottom: 1rpx solid #ddd;
+    }
+  }
+  &-left {
+    margin-right: 26rpx;
+    &,
+    .product-img {
+      width: 200rpx;
+      height: 200rpx;
+      background-color: #eee;
+    }
+  }
+  &-right {
+    width: 480rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+  &-name {
+    height: 84rpx;
+    font-size: 30rpx;
+    line-height: 1.4;
+    /* 多行文字隐藏省略号 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  &-price {
+    color: #ff2d4a;
+    &-symbol,
+    &-decimal {
+      font-size: 28rpx;
+    }
+    &-integer {
+      font-size: 44rpx;
+    }
+  }
+  &-count {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    letter-spacing: 2rpx;
+    color: #999;
+  }
+}
+
+.order {
+  &-list {
+    background-color: #fff;
+  }
+  &-total-item {
+    height: 60rpx;
+    background-color: #fff;
+    padding: 0 20rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    &-right {
+      color: #ff2d4a;
+    }
+  }
+  &-cell {
+    height: 88rpx;
+    background-color: #fff;
+    padding: 0 20rpx;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+    &::after {
+      content: '';
+      position: absolute;
+      border-top: 1rpx solid #ddd;
+      left: 20rpx;
+      right: 20rpx;
+      top: -1rpx;
+    }
+    .btn-line {
+      border: 2rpx solid #999;
+      border-radius: 5rpx;
+      width: 156rpx;
+      height: 56rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 40rpx;
+    }
+    .btn-color-main {
+      color: #ff2d4a;
+    }
+  }
+  &-pay {
+    background-color: #fff;
+    padding: 20rpx 20rpx 60rpx;
+    font-size: 30rpx;
+    text-align: right;
+    &-head {
+      margin-bottom: 20rpx;
+    }
+    &-total {
+      color: #ff2d4a;
+    }
+    &-btn,
+    .login-btn {
+      background-color: #00c000;
+      display: flex;
+      height: 80rpx;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 30rpx;
+      border-radius: 5rpx;
+      margin-bottom: 20rpx;
+      &.disabled {
+        background-color: #ddd;
+      }
+    }
+  }
+}
+</style>
+<template>
+  <!-- 1.0 这里写结构 -->
+    <view class="address-info">
+      <block wx:if="{{ address }}">
+        <view class="item space-between">
+          <view class="col">
+            <text class="note">收货人：</text>
+            <text class="detail">Mark 狼</text>
+          </view>
+          <view class="col">
+            <text class="address-phone">13800138000</text>
+            <view class="iconfont-tap icon-jiantouyou"></view>
+          </view>
+        </view>
+        <view class="item">
+          <text class="note">收货地址：</text>
+          <text class="detail">广州市天河区珠吉路传智播客</text>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="address-add-btn">+ 新增地址</view>
+      </block>
+      <image class="address-border" src="/images/cart_border@2x.png" alt="" />
+    </view>
+  <view class="divider"></view>
+  <view class="order-list">
+    <block wx:for="12" wx:key="index">
+      <view class="product-item">
+        <navigator url="/pages/goods_detail?goods_id={{ item.goods_id }}" class="product-left">
+          <image class="product-img image-holder" src="/images/place_holder@2x.png" />
+        </navigator>
+        <view class="product-right">
+          <navigator url="/pages/goods_detail?goods_id={{ item.goods_id }}" class="product-name">
+            木夕森女系绣球花永生花925纯银色锁骨链干花坠木夕森女系绣球花永生花925纯银色锁骨链干花坠
+          </navigator>
+          <view class="product-price">
+            <text class="product-price-symbol">￥</text>
+            <text class="product-price-integer">100</text>
+            <text class="product-price-decimal">.00</text>
+          </view>
+          <view class="product-count">x2</view>
+        </view>
+      </view>
+    </block>
+    <view class="order-cell">
+      项目测试使用，支付成功后我们不会为您发货
+    </view>
+  </view>
+  <view class="divider"></view>
+  <view class="order-total">
+    <view class="order-total-item">
+      <view class="order-total-item-left">商品金额</view>
+      <view class="order-total-item-right">￥0.01</view>
+    </view>
+    <view class="order-total-item">
+      <view class="order-total-item-left">运费</view>
+      <view class="order-total-item-right">+￥0.00</view>
+    </view>
+  </view>
+  <view class="order-pay">
+    <view class="order-pay-head">实付金额：<text class="order-pay-total">￥0.01</text></view>
+    <button open-type="getUserInfo" @getuserinfo="getUserInfoHandle" class="login-btn">点击登录后下单</button>
+    <view class="order-pay-btn" @tap="orderPayHandle">微信支付</view>
+  </view>
+
+</template>
+
+<script>
+// 3.0 这里写JS
+import wepy from 'wepy'
+
+// 类名首字母大写
+export default class CartOrder extends wepy.page {
+  // 4.0 这里写JSON配置项
+  config = {
+    navigationBarTitleText: '确认订单',
+    backgroundColor: '#fff'
+  }
+  onLoad() {
+    console.log('onLoad')
+  }
+}
+</script>

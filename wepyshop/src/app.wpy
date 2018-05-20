@@ -14,6 +14,59 @@ image {
 // input {
 //   border: 1px solid red;
 // }
+// 结算页面 cart_order样式
+.image-holder,
+.holder-image {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACgCAMAAAC8EZcfAAAAV1BMVEWysrL////9/f3b29u1tbXn5+f6+vrt7e34+Pje3t7GxsbAwMD19fXKysrX19fp6enU1NTx8fHj4+PNzc23t7f39/fh4eHQ0NC8vLzJycm5ubna2trZ2dl6npVyAAACZElEQVR42u3Y3a6iMBiF4W/VQgH5ERCQrfd/nbOzq23drXMETCZZz5EJEN4UShuFiIiIiIiIiIiIiIiIiIiIiIiIiOj/NLeVxL6WeyPeuc36aeqz9iwxPc6mUKow5aplewDq5XfeoICTvCw9nHrRv84tczhFe90h8NugJVAVgA8893hTVxK45HgzNbsEYhDvrBAELgq/qFZedIZIuUsgKnEMgsAWTtygDRKyXQKNf8AIAhckPccwQ1K5R6DS8vRwge5pR9TNjW7KuEMgbvI0B4EmaJpqV2sq+XZT+KC47hDovnCZD1zx0jdaRDfG/pYfgw+ax2o81XAeBwV20VtVtY9VrC/ljmo7ZS7KFetDAq8K1iAJFzxdxOW7wuaQwAZWfpWEztfH0eUhge1f71bgh/oST9ewzCGB88evxrkRDauTUAmrOCRwgFUltgdyc6eFFljqH45gkwNBYCuhNQo8/B1s7EwVnXxBl0MfcZP4qt1y/HCTpBbPX2yO/Q7O4gyw/HmVOH71K49dSfxMuMMFjrD6azyAWDcP9ANhfFSDF+PXYkv8+HausNxvqfO3qdSH3UxdK3jBtgf1aK80wX5xO76g77LOTEC8H4zl79utIpuzCc6ktw+M3f3iGjPuYEojGyoQCTcpJyQ9jtvyd4iFs6ZViOV2h6CTF8+yqRFptTxVfWp0LT0gcpJtaYMU1Ygz1p+f4VLgTb3K1vSgEJkaCVWPri/yumtPAPKLBK73PMi7aNnB7TKYusifpr4rKy1pY2Giv1/0Wpop/86/V0JERERERERERERERERERERERERE9H/7AxhzF5rXgQpdAAAAAElFTkSuQmCC');
+  background-size: cover;
+}
+
+.fz24 {
+  font-size: 24rpx !important;
+}
+
+.space-between {
+  justify-content: space-between !important;
+}
+.flex-end {
+  justify-content: flex-end !important;
+}
+.flex-center {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+.divider {
+  height: 20rpx;
+}
+.divider-sm {
+  height: 10rpx;
+}
+.mt20 {
+  margin-top: 20rpx;
+}
+.bottom-space {
+  height: 150rpx;
+}
+.color-main {
+  color: #ff2d4a !important;
+}
+
+.iconfont {
+  font-size: 32rpx;
+}
+.iconfont-tap {
+  font-family: 'iconfont' !important;
+  font-size: 32rpx;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+
+  min-width: 88rpx;
+  min-height: 88rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
 
 <script>
@@ -34,7 +87,8 @@ export default class extends wepy.app {
       'pages/me',
       'pages/goods_detail',
       'pages/goods_list',
-      'pages/orders'
+      'pages/orders',
+      'pages/cart_order'
     ],
     window: {
       backgroundTextStyle: 'light',

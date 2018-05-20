@@ -299,7 +299,6 @@
 </style>
 
 <template>
-
   <view class="divider"></view>
   <view class="cart-list">
     <view class="shop-head">
@@ -352,9 +351,9 @@
         <view class="total-foot">包含运费</view>
       </view>
     </view>
-    <view class="buy-button">
+    <navigator url="/pages/cart_order" class="buy-button">
       结算({{selectStatusCount}})
-    </view>
+    </navigator>
   </view>
 </template>
 <script>
@@ -450,6 +449,10 @@ export default class Cart extends wepy.page {
     console.log('onShow', '每一次打开都会重复执行')
     this.cartDataArr = wepy.getStorageSync('cartDataArr') || []
     // console.log(this.cartDataArr)
+  }
+  // 当切换到其他页面时更新本地存储
+  onHide() {
+    this.cartDataArr = wepy.getStorageSync('cartDataArr') || []
   }
 }
 </script>
