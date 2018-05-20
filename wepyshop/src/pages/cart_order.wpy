@@ -240,18 +240,18 @@ page {
   <!-- 1.0 这里写结构 -->
   <view class="divider"></view>
   <view class="order-list">
-    <block wx:for="12" wx:key="index">
+    <block wx:for="{{cartDataArr}}" wx:key="index" wx:if="{{item.selectStatus}}">
       <view class="product-item">
         <navigator url="/pages/goods_detail?goods_id={{ item.goods_id }}" class="product-left">
-          <image class="product-img image-holder" src="/images/place_holder@2x.png" />
+          <image class="product-img image-holder" src="{{item.goods_small_logo}}" />
         </navigator>
         <view class="product-right">
           <navigator url="/pages/goods_detail?goods_id={{ item.goods_id }}" class="product-name">
-            木夕森女系绣球花永生花925纯银色锁骨链干花坠木夕森女系绣球花永生花925纯银色锁骨链干花坠
+            {{item.goods_name}}
           </navigator>
           <view class="product-price">
             <text class="product-price-symbol">￥</text>
-            <text class="product-price-integer">100</text>
+            <text class="product-price-integer">{{item.goods_price}}</text>
             <text class="product-price-decimal">.00</text>
           </view>
           <view class="product-count">x2</view>
@@ -295,13 +295,22 @@ export default class CartOrder extends wepy.page {
     backgroundColor: '#fff'
   }
   data = {
-    addressPage: null // 定义父组件的地址,然后子组件传值过来
+    addressPage: null, // 定义父组件的地址,然后子组件传值过来
+    cartDataArr: []
+  }
+  methods = {
+    getUserInfoHandle(e) {
+      console.log(1, e)
+    }
   }
   components = {
     Address // 注册地址组件
   }
   onLoad() {
     console.log('onLoad')
+  }
+  onShow() {
+    this.cartDataArr = wepy.getStorageSync('cartDataArr')
   }
 }
 </script>
