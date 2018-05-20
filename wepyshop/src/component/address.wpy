@@ -1,11 +1,23 @@
 <style lang="less">
 </style>
 <template>
-  <view class="addres-wrap">
+  <view class="addres-wrap" @tap="aa">
     <slot>地址选择管理</slot>
   </view>
 </template>
 <script>
 import wepy from 'wepy'
-export default class Address extends wepy.component {}
+export default class Address extends wepy.component {
+  methods = {
+    aa() {
+      console.log(11)
+      wepy.chooseAddress().then(res => {
+        console.log(res)
+      })
+    }
+  }
+  onLoad() {
+
+  }
+}
 </script>

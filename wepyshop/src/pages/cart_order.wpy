@@ -212,10 +212,8 @@ page {
 }
 </style>
 <template>
-<Address>
-  购物车选择地址
-</Address>
-  <!-- 1.0 这里写结构 -->
+  <Address>
+  <!-- 使用收货地址组件 -->
     <view class="address-info">
       <block wx:if="{{ address }}">
         <view class="item space-between">
@@ -238,6 +236,8 @@ page {
       </block>
       <image class="address-border" src="/images/cart_border@2x.png" alt="" />
     </view>
+  </Address>
+  <!-- 1.0 这里写结构 -->
   <view class="divider"></view>
   <view class="order-list">
     <block wx:for="12" wx:key="index">
@@ -284,7 +284,7 @@ page {
 <script>
 // 3.0 这里写JS
 import wepy from 'wepy'
-// 收货地址组将
+// 导入收货地址组件
 import Address from '../component/address'
 
 // 类名首字母大写
@@ -295,7 +295,7 @@ export default class CartOrder extends wepy.page {
     backgroundColor: '#fff'
   }
   components = {
-    Address
+    Address // 注册地址组件
   }
   onLoad() {
     console.log('onLoad')
