@@ -1,23 +1,33 @@
 <style lang="less">
 </style>
 <template>
-  <view class="addres-wrap" @tap="aa">
+  <view class="addres-wrap" @tap="chooseAddress">
     <slot>地址选择管理</slot>
   </view>
 </template>
 <script>
 import wepy from 'wepy'
 export default class Address extends wepy.component {
+  // 使用props实现组件通讯,子传父,组件中的地址传到页面中使用
+  props = {
+    userAddress: {
+      tpye: Object,
+      // 将子组件的值传给父组件
+      twoWay: true
+    }
+  }
   methods = {
-    aa() {
+    // 调用原生收货地址组件
+    chooseAddress() {
       console.log(11)
       wepy.chooseAddress().then(res => {
         console.log(res)
+        // 把收货地址传给userAddress
+        this.userAddress = res
+        this.$apply()
       })
     }
   }
-  onLoad() {
-
-  }
+  onLoad() {}
 }
 </script>

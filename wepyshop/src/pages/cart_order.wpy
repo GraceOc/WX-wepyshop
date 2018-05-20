@@ -212,8 +212,8 @@ page {
 }
 </style>
 <template>
-  <Address>
-  <!-- 使用收货地址组件 -->
+<!--使用地址组件 配合twoWay:true实现子传父,添加.sync后也能实现父传子-->
+  <Address :userAddress.sync="addressPage">
     <view class="address-info">
       <block wx:if="{{ address }}">
         <view class="item space-between">
@@ -293,6 +293,9 @@ export default class CartOrder extends wepy.page {
   config = {
     navigationBarTitleText: '确认订单',
     backgroundColor: '#fff'
+  }
+  data = {
+    addressPage: null // 定义父组件的地址,然后子组件传值过来
   }
   components = {
     Address // 注册地址组件
