@@ -228,7 +228,7 @@ page {
         </view>
         <view class="item">
           <text class="note">收货地址：</text>
-          <text class="detail">{{ addressPage.userAddressMerge }}</text>
+          <text class="detail">{{addressPage.userAddressMerge}}</text>
         </view>
       </block>
       <block wx:else>

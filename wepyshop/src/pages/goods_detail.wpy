@@ -266,10 +266,13 @@
       </view>
     </view>
     <view class="part">
+      <!-- 使用收货地址组件 -->
+      <Address :userAddress="addressPage">
         <view class="part-item">
-            <text class="note">送至</text><text class="description">广东省广州市天河区珠吉路58号津安创意园传智播客</text>
+            <text class="note">送至</text><text class="description">{{addressPage.userAddressMerge}}</text>
             <view class="iconfont icon-jiantouyou"></view>
         </view>
+      </Address>
     </view>
 
     <view class="tabs">
@@ -321,6 +324,8 @@
 import wepy from 'wepy'
 // 导入API
 import api from '../api/api'
+// 导入收货地址组件
+import Address from '../component/address'
 // 导入富文本插件
 import WxParse from '../plugins/wxParse/wxParse.js'
 // 首字母大写
@@ -331,7 +336,12 @@ export default class GoodsDetail extends wepy.page {
   }
   data = {
     goodsDetail: null,
-    tabsActiveIndex: 0 // 商品详情和规格参数切换 设置默认值
+    tabsActiveIndex: 0, // 商品详情和规格参数切换 设置默认值
+    addressPage: null // 定义收货地址变量
+  }
+  // 注册收货地址组件
+  components = {
+    Address
   }
 
   methods = {
