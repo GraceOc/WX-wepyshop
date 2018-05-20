@@ -345,7 +345,7 @@
           <view class="total-note">合计：</view>
           <view class="product-price">
             <text class="product-price-symbol">￥</text>
-            <text class="product-price-integer">0</text>
+            <text class="product-price-integer">{{totalPrice}}</text>
             <text class="product-price-decimal">.00</text>
           </view>
         </view>
@@ -353,7 +353,7 @@
       </view>
     </view>
     <view class="buy-button">
-      结算(0)
+      结算({{selectStatusCount}})
     </view>
   </view>
 </template>
@@ -366,15 +366,18 @@ export default class Cart extends wepy.page {
   }
   data = {
     cartDataArr: [], // 购物车商品数量
-    selectStatusCount: 0 // 记录别选中的商品数量
+    selectStatusCount: 0, // 记录别选中的商品数量
+    totalPrice: 0 // 总价格
   }
   // 使用计算属性解决页面一加载进来时无法获取商品状态的问题
   computed = {
     cartDataArr() {
       this.selectStatusCount = 0 // 初始化
+      this.totalPrice = 0
       this.cartDataArr.forEach(item => {
         if (item.selectStatus) {
           this.selectStatusCount++
+          this.totalPrice += item.goods_number * item.goods_price
         }
       })
       return this.cartDataArr

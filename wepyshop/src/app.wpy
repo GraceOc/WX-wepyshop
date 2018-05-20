@@ -11,9 +11,9 @@ page {
 image {
   vertical-align: top;
 }
-input {
-  border: 1px solid red;
-}
+// input {
+//   border: 1px solid red;
+// }
 </style>
 
 <script>
@@ -43,6 +43,8 @@ export default class extends wepy.app {
       navigationBarTextStyle: '#fff'
     },
     tabBar: {
+      selectedColor: '#ff2d4a',
+      // backgroundColor: '#0a0',
       list: [
         {
           pagePath: 'pages/index',
