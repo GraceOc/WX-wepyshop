@@ -1,0 +1,11 @@
+<style lang="less">
+</style>
+<template>
+  <view class="addres-wrap">
+    <slot>地址选择管理</slot>
+  </view>
+</template>
+<script>
+import wepy from 'wepy'
+export default class Address extends wepy.component {}
+</script>

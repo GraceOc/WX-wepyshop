@@ -212,6 +212,9 @@ page {
 }
 </style>
 <template>
+<Address>
+  购物车选择地址
+</Address>
   <!-- 1.0 这里写结构 -->
     <view class="address-info">
       <block wx:if="{{ address }}">
@@ -281,6 +284,8 @@ page {
 <script>
 // 3.0 这里写JS
 import wepy from 'wepy'
+// 收货地址组将
+import Address from '../component/address'
 
 // 类名首字母大写
 export default class CartOrder extends wepy.page {
@@ -288,6 +293,9 @@ export default class CartOrder extends wepy.page {
   config = {
     navigationBarTitleText: '确认订单',
     backgroundColor: '#fff'
+  }
+  components = {
+    Address
   }
   onLoad() {
     console.log('onLoad')
