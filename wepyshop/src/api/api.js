@@ -17,9 +17,13 @@ const getHomeNav = params => {
 const getHomeFloor = params => {
   return wxRequest('home/floordata', params).then(res => res.data)
 }
-//商品详情
+// 商品详情
 const getGoodsDetail = params => {
   return wxRequest('goods/detail', params).then(res => res.data)
+}
+// 微信登录换取token
+const postUsersWxLogin = params => {
+  return wxRequest('/users/wxlogin', params).then(res => res.data)
 }
 
 // 将封装的API统一导出
@@ -27,5 +31,6 @@ export default {
   getHomeSwiper,
   getHomeNav,
   getHomeFloor,
-  getGoodsDetail
+  getGoodsDetail,
+  postUsersWxLogin
 }

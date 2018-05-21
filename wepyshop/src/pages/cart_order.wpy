@@ -286,7 +286,8 @@ page {
 import wepy from 'wepy'
 // 导入收货地址组件
 import Address from '../component/address'
-
+// 导入api
+import api from '../api/api'
 // 类名首字母大写
 export default class CartOrder extends wepy.page {
   // 4.0 这里写JSON配置项
@@ -311,16 +312,43 @@ export default class CartOrder extends wepy.page {
     }
   }
   methods = {
-    getUserInfoHandle(e) {
-      console.log(1, e)
+    // 通过事件对象获取用户信息
+    getUserInfoHandle(event) {
+      console.log(event)
+      // 为了多页面数据共享,把登录信息存在本地中
+      wepy.setStorageSync('userInfo', event.detail.userInfo)
+      // 根据接口所需数据,还需通过wepy.login()获取code
+      wepy.login().then(res => {
+        let options = {
+          encryptedData: event.detail.encryptedData,
+          iv: event.detail.iv,
+          rawData: event.detail.rawData,
+          signature: event.detail.signature,
+          code: res.code
+        }
+        console.log(options)
+        this.doWxLogin(options)
+      })
     }
   }
+  // 封装获取微信登录token的函数
+  doWxLogin(options) {
+    api
+      .postUsersWxLogin({
+        method: 'POST',
+        data: options
+      })
+      .then(res => {
+        console.log(11, res)
+      })
+  }
   components = {
-    Address // 注册地址组件
+    Address
   }
   onLoad() {
     console.log('onLoad')
   }
+  // 当切换到本页面时货物购物车商品
   onShow() {
     this.cartDataArr = wepy.getStorageSync('cartDataArr')
   }
