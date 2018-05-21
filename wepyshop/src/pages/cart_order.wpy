@@ -275,8 +275,12 @@ page {
   </view>
   <view class="order-pay">
     <view class="order-pay-head">实付金额：<text class="order-pay-total">￥0.01</text></view>
-    <button open-type="getUserInfo" @getuserinfo="getUserInfoHandle" class="login-btn">点击登录后下单</button>
-    <view class="order-pay-btn" @tap="orderPayHandle">微信支付</view>
+    <block wx:if="{{!token}}">
+      <button open-type="getUserInfo" @getuserinfo="getUserInfoHandle" class="login-btn">点击登录后下单</button>
+    </block>
+    <block wx:else>
+      <view class="order-pay-btn" @tap="orderPayHandle">微信支付</view>
+    </block>
   </view>
 
 </template>
@@ -298,7 +302,8 @@ export default class CartOrder extends wepy.page {
   data = {
     addressPage: null, // 定义父组件的地址,然后子组件传值过来
     cartDataArr: [],
-    totalPrice: 0
+    totalPrice: 0,
+    token: ''
   }
   computed = {
     cartDataArr() {
@@ -317,7 +322,7 @@ export default class CartOrder extends wepy.page {
   methods = {
     // 通过事件对象获取用户信息
     getUserInfoHandle(event) {
-      console.log(event)
+      console.log('点击登录后下单', event)
       // 为了多页面数据共享,把登录信息存在本地中
       wepy.setStorageSync('userInfo', event.detail.userInfo)
       // 根据接口所需数据,还需通过wepy.login()获取code
@@ -329,7 +334,7 @@ export default class CartOrder extends wepy.page {
           signature: event.detail.signature,
           code: res.code
         }
-        console.log(options)
+        // console.log(options)
         this.doWxLogin(options)
       })
     },
@@ -339,7 +344,7 @@ export default class CartOrder extends wepy.page {
         wepy.showToast({
           title: '请选择收货地址',
           icon: 'none',
-          duration: 100
+          duration: 1000
         })
       } else {
         // 将选中状态的商品数据
@@ -369,20 +374,38 @@ export default class CartOrder extends wepy.page {
           // 商品信息
           goods: goodsServerArr
         }
-        this.doPostMyOrderCreate(options)
-        // console.log('准备好后台校验的数据', options)
+        // 调用创建订单函数
+        this.doPostMyOrdersCreate(options)
       }
     }
   }
   // 封装创建订单函数
-  doPostMyOrderCreate(options) {
+  doPostMyOrdersCreate(options) {
     api
-      .postMyOrderCreate({
+      .postMyOrdersCreate({
         method: 'POST',
         data: options
       })
       .then(res => {
-        console.log(res)
+        if (res.meta.status === 200) {
+          let orderNumber = res.data.order_number
+          console.log('创建订单', orderNumber)
+          // 调用发起订单支付
+          this.doPostMyOrdersPay(orderNumber)
+        }
+      })
+  }
+  // 发起订单支付
+  doPostMyOrdersPay(orderNumber) {
+    console.log(orderNumber)
+    api
+      .postMyOrdersPay({
+        method: 'POST',
+        data: {
+          order_number: orderNumber
+        }
+      })
+      .then(res => {
       })
   }
   // 封装获取微信登录token的函数
@@ -393,19 +416,24 @@ export default class CartOrder extends wepy.page {
         data: options
       })
       .then(res => {
-        console.log(11, res)
+        console.log('token', res)
         if (res.meta.status === 200) {
+          // 将token存到本地
           wepy.setStorageSync('token', res.data.token)
-          console.log('成功')
+          // 把token添加到data中
+          this.token = res.data.token
+          this.$apply()
         }
       })
   }
   onLoad() {
-    console.log('onLoad')
+    // console.log('onLoad')
   }
   // 当切换到本页面时货物购物车商品
   onShow() {
     this.cartDataArr = wepy.getStorageSync('cartDataArr')
+    // 打开页面时获取本地存储的token
+    this.token = wepy.getStorageSync('token')
   }
 }
 </script>
