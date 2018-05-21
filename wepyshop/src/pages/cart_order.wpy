@@ -332,6 +332,45 @@ export default class CartOrder extends wepy.page {
         console.log(options)
         this.doWxLogin(options)
       })
+    },
+    // 微信支付按钮事件 发送数据到后台进行二次校验
+    orderPayHandle() {
+      if (!this.addressPage) {
+        wepy.showToast({
+          title: '请选择收货地址',
+          icon: 'none',
+          duration: 100
+        })
+      } else {
+        // 将选中状态的商品数据
+        let orderSelectArr = []
+        this.cartDataArr.forEach(item => {
+          if (item.selectStatus) {
+            orderSelectArr.push(item)
+          }
+        })
+        // 收集选中状态的商品数据
+        let goodsServerArr = []
+        orderSelectArr.forEach(item => {
+          let temObj = {
+            goods_price: item.goods_price,
+            goods_id: item.goods_id,
+            goods_number: item.goods_number
+          }
+          goodsServerArr.push(temObj)
+        })
+        let options = {
+          // 收货地址
+          consignee_addr: this.addressPage.userAddressMerge,
+          // 商品总金额
+          order_price: this.totalPrice,
+          // 商品详情, 以json格式字符串传输
+          order_detail: JSON.stringify(orderSelectArr),
+          // 商品信息
+          goods: goodsServerArr
+        }
+        console.log('准备好后台校验的数据', options)
+      }
     }
   }
   // 封装获取微信登录token的函数
