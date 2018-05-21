@@ -78,6 +78,27 @@ export default class extends wepy.app {
   constructor() {
     super()
     this.use('promisify')
+    // 添加拦截器
+    this.intercept('request', {
+      // 发出请求时的回调函数
+      config(config) {
+        // 获取本地token,如果存在就将token设置给请求头
+        let token = wepy.getStorageSync('token') || ''
+        if (token) {
+          config.header.Authorization = token
+        }
+        // 必须返回OBJECT参数对象，否则无法发送请求到服务端
+        return config
+      },
+
+      // 请求成功后的回调函数
+      success(config) {
+        // 可以在这里对收到的响应数据对象进行加工处理
+        console.log('request success: ', config)
+        // 必须返回响应数据对象，否则后续无法对响应数据进行处理
+        return config
+      }
+    })
   }
   config = {
     pages: [

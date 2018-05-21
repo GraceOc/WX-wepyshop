@@ -25,6 +25,10 @@ const getGoodsDetail = params => {
 const postUsersWxLogin = params => {
   return wxRequest('users/wxlogin', params).then(res => res.data)
 }
+// 微信支付创建订单
+const postMyOrderCreate = params => {
+  return wxRequest('my/orders/create', params).then(res => res.data)
+}
 
 // 将封装的API统一导出
 export default {
@@ -32,5 +36,6 @@ export default {
   getHomeNav,
   getHomeFloor,
   getGoodsDetail,
-  postUsersWxLogin
+  postUsersWxLogin,
+  postMyOrderCreate
 }

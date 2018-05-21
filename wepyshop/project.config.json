@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"appid": "wxeedd7b4b0fe27125",
+	"appid": "wxfb52f2d7b2f6123a",
 	"projectname": "wepyshop",
 	"miniprogramRoot": "./dist",
 	"condition": {
@@ -28,7 +28,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 1,
 			"list": [
 				{
 					"id": -1,

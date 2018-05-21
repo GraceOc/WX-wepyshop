@@ -369,9 +369,21 @@ export default class CartOrder extends wepy.page {
           // 商品信息
           goods: goodsServerArr
         }
-        console.log('准备好后台校验的数据', options)
+        this.doPostMyOrderCreate(options)
+        // console.log('准备好后台校验的数据', options)
       }
     }
+  }
+  // 封装创建订单函数
+  doPostMyOrderCreate(options) {
+    api
+      .postMyOrderCreate({
+        method: 'POST',
+        data: options
+      })
+      .then(res => {
+        console.log(res)
+      })
   }
   // 封装获取微信登录token的函数
   doWxLogin(options) {
