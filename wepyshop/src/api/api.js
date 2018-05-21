@@ -23,7 +23,7 @@ const getGoodsDetail = params => {
 }
 // 微信登录换取token
 const postUsersWxLogin = params => {
-  return wxRequest('/users/wxlogin', params).then(res => res.data)
+  return wxRequest('users/wxlogin', params).then(res => res.data)
 }
 
 // 将封装的API统一导出

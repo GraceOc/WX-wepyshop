@@ -311,6 +311,9 @@ export default class CartOrder extends wepy.page {
       return this.cartDataArr
     }
   }
+  components = {
+    Address
+  }
   methods = {
     // 通过事件对象获取用户信息
     getUserInfoHandle(event) {
@@ -340,10 +343,11 @@ export default class CartOrder extends wepy.page {
       })
       .then(res => {
         console.log(11, res)
+        if (res.meta.status === 200) {
+          wepy.setStorageSync('token', res.data.token)
+          console.log('成功')
+        }
       })
-  }
-  components = {
-    Address
   }
   onLoad() {
     console.log('onLoad')
