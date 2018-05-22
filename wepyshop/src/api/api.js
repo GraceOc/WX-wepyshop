@@ -37,6 +37,10 @@ const postMyOrdersPay = params => {
 const postMyOrdersChkOrder = params => {
   return wxRequest('my/orders/chkOrder', params).then(res => res.data)
 }
+// 订单查询
+const postMyOrdersAll = params => {
+  return wxRequest('my/orders/all', params).then(res => res.data)
+}
 
 // 将封装的API统一导出
 export default {
@@ -47,5 +51,6 @@ export default {
   postUsersWxLogin,
   postMyOrdersCreate,
   postMyOrdersPay,
-  postMyOrdersChkOrder
+  postMyOrdersChkOrder,
+  postMyOrdersAll
 }

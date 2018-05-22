@@ -420,6 +420,8 @@ export default class CartOrder extends wepy.page {
               }
             }).then(res => {
               console.log('后台成功校验支付', res)
+              // 支付成功后跳转到订单页面
+              wepy.navigateTo({url: '/pages/orders'})
             })
           })
         }
