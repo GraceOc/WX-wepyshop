@@ -406,6 +406,14 @@ export default class CartOrder extends wepy.page {
         }
       })
       .then(res => {
+        if (res.meta.status === 200) {
+          let wxOrder = res.data.wxorder
+          console.log('222', wxOrder)
+          // 使用微信支付接口, 需要传入对象,在res.data.wxorder中
+          wepy.requestPayment(wxOrder).then(res => {
+            console.log('使用微信支付接口', res)
+          })
+        }
       })
   }
   // 封装获取微信登录token的函数
