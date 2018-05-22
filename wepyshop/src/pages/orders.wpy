@@ -167,9 +167,9 @@
     </view>
     <view class="tabs-body">
       <view class="order-list">
-        <block wx:for="123" wx:key="index">
+        <block wx:for="{{ordersListArr}}" wx:key="index">
 
-          <block wx:for="12" wx:key="index">
+          <block wx:for="{{item.order_detail}}" wx:key="index">
             <view class="product-item">
               <navigator url="/pages/goods_detail?goods_id={{item.goods_id}}" class="product-left">
                 <image class="product-img holder-image" src="{{item.goods_small_logo}}" />
@@ -220,8 +220,28 @@ export default class Orders extends wepy.page {
       this.tabsActiveIndex = index
     }
   }
+  doPostMyOrdersAll(typeNumber) {
+    api
+      .postMyOrdersAll({
+        data: {
+          type: typeNumber
+        }
+      })
+      .then(res => {
+        console.log('订单', res)
+        this.ordersListArr = res.data
+        if (this.ordersListArr.length > 0) {
+          this.ordersListArr.forEach(item => {
+            item.order_detail = JSON.parse(item.order_detail)
+          })
+        }
+        this.$apply()
+      })
+  }
   onLoad(option) {
     console.log('订单页面', option)
+    let typeNumber = option.type
+    this.doPostMyOrdersAll(typeNumber)
   }
 }
 </script>
