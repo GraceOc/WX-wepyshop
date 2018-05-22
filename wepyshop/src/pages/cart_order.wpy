@@ -412,6 +412,15 @@ export default class CartOrder extends wepy.page {
           // 使用微信支付接口, 需要传入对象,在res.data.wxorder中
           wepy.requestPayment(wxOrder).then(res => {
             console.log('使用微信支付接口', res)
+            // 支付成功后,后台校验,校验成功返回结果
+            api.postMyOrdersChkOrder({
+              method: 'POST',
+              data: {
+                order_number: orderNumber
+              }
+            }).then(res => {
+              console.log('后台成功校验支付', res)
+            })
           })
         }
       })
