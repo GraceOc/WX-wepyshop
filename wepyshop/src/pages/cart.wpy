@@ -370,7 +370,7 @@ export default class Cart extends wepy.page {
   }
   data = {
     cartDataArr: [], // 购物车商品数量
-    selectStatusCount: 0, // 记录别选中的商品数量
+    selectStatusCount: 0, // 记录被选中的商品数量
     totalPrice: 0 // 总价格
   }
   // 使用计算属性解决页面一加载进来时无法获取商品状态的问题

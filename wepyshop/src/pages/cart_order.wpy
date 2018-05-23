@@ -275,7 +275,7 @@ page {
   </view>
   <view class="order-pay">
     <view class="order-pay-head">实付金额：<text class="order-pay-total">￥0.01</text></view>
-    <block wx:if="{{!token}}">
+    <block wx:if="{{23}}">
       <button open-type="getUserInfo" @getuserinfo="getUserInfoHandle" class="login-btn">点击登录后下单</button>
     </block>
     <block wx:else>
@@ -340,6 +340,7 @@ export default class CartOrder extends wepy.page {
     },
     // 微信支付按钮事件 发送数据到后台进行二次校验
     orderPayHandle() {
+      console.log('微信支付')
       if (!this.addressPage) {
         wepy.showToast({
           title: '请选择收货地址',
@@ -352,6 +353,7 @@ export default class CartOrder extends wepy.page {
         this.cartDataArr.forEach(item => {
           if (item.selectStatus) {
             orderSelectArr.push(item)
+            // console.log('选中状态的商品', orderSelectArr)
           }
         })
         // 收集选中状态的商品数据
@@ -363,6 +365,7 @@ export default class CartOrder extends wepy.page {
             goods_number: item.goods_number
           }
           goodsServerArr.push(temObj)
+          // console.log('收集商品', goodsServerArr)
         })
         let options = {
           // 收货地址
@@ -374,6 +377,7 @@ export default class CartOrder extends wepy.page {
           // 商品信息
           goods: goodsServerArr
         }
+        console.log('收集所有发送后台的数据', options)
         // 调用创建订单函数
         this.doPostMyOrdersCreate(options)
       }
@@ -387,6 +391,7 @@ export default class CartOrder extends wepy.page {
         data: options
       })
       .then(res => {
+        console.log('创建订单', res)
         if (res.meta.status === 200) {
           let orderNumber = res.data.order_number
           console.log('创建订单', orderNumber)
@@ -446,7 +451,6 @@ export default class CartOrder extends wepy.page {
       })
   }
   onLoad() {
-    // console.log('onLoad')
   }
   // 当切换到本页面时货物购物车商品
   onShow() {
